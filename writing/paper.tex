@@ -1,0 +1,57 @@
+\documentclass[sn-basic,Numbered]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+\input{files/frontmatter}
+\begin{document}
+
+\title[Decentralized Matrix-Parametrized Proximal Splitting for (Consensus Optimization) (Separable Convex Optimization with Coupling Constraints) (Multi-Block Optimization)]{Decentralized Matrix-Parametrized Proximal Splitting for (Consensus Optimization) (Separable Convex Optimization with Coupling Constraints) (Multi-Block Optimization)}
+
+%%=============================================================%%
+%% Prefix	-> \pfx{Dr}
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% NatureName	-> \tanm{Poet Laureate} -> Title after name
+%% Degrees	-> \dgr{MSc, PhD}
+%% \author*[1,2]{\pfx{Dr} \fnm{Joergen W.} \spfx{van der} \sur{Ploeg} \sfx{IV} \tanm{Poet Laureate} 
+%%                 \dgr{MSc, PhD}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author*{\fnm{Peter} \sur{Barkley}}\email{peter.barkley@nps.edu}
+\author{\fnm{Robert L} \sur{Bassett}}\email{robert.bassett@nps.edu}
+
+\affil{\orgdiv{Operations Research Department}, \orgname{Naval Postgraduate School}, \orgaddress{\street{1 University Circle}, \city{Monterey}, \postcode{93943}, \state{CA}, \country{USA}}}
+
+\abstract{We present a variant of matrix-parametrized proximal splitting allowing arbitrary coupling constraints over sub-elements of decision variables which permits decentralized execution over connected graphs.
+These methods permit the extension of matrix-parametrized proximal splitting to multi-stage stochastic programming and other convex optimization problems with arbitrary coupling constraints over portions of the decision variables.
+}
+
+
+\maketitle
+
+\section{Introduction and Preliminaries}\label{Sec:Preliminaries}
+
+\input{files/introduction}
+
+\input{files/preliminaries}
+
+\section{Main Result}\label{Sec:Main}
+
+\input{files/main}
+
+\section{Numerical Experiments}\label{Sec:Experiments}
+
+\input{files/experiments}
+
+\section{Conclusion}
+
+\input{files/conclusion}
+
+\bibliography{files/thebib}% common bib file
+%% if required, the content of .bbl file can be included here once bbl is generated
+%%\input sn-article.bbl
+
+\appendix 
+\section{Appendix}\label{Appendix}
+\input{files/appendix}
+
+\end{document}
