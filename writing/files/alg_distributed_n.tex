@@ -1,0 +1,35 @@
+
+\begin{algorithm} 
+    \caption{Decentralized Matrix-Parametrized Proximal Splitting Algorithm}\label{n_iteration_parallel} 
+    \begin{algorithmic}[1] 
+    \Require $\alpha > 0$; $\gamma \in (0,1)$; $\v{v}^0 \in \HH^p$ such that $\sum_{i=1}^p v_i^0 = 0$; $Z, W \in \Sp^p$ satisfying \eqref{oars}; $L$ such that $Z=2\I - L - L^T$.
+    \State $k \gets 0$
+    \Repeat
+      \For{$i=1\dots p$ in parallel}
+        \For{$j=1\dots i-1$}
+            \If{$L_{ij} \ne 0$ \textbf{or} $W_{ij} \ne 0$}
+              \State Receive $x_j$ from node $j$
+            \EndIf
+        \EndFor
+        \State $x_i = J_{\alpha F_i}\left(v_i^{k} + \sum_{j=1}^{i-1}L_{ij} x_j\right)$\label{n_itr1_parallel}
+        \For{$j=i+1\dots n$}
+        \If{$L_{ij} \ne 0$ \textbf{or} $W_{ij} \ne 0$}
+          \State Send $x_i$ from node $j$
+        \EndIf
+        \EndFor
+        \For{$j=1 \dots i-1$}
+        \If{$W_{ij} \ne 0$}
+            \State Send $x_i$ to node $j$
+        \EndIf
+        \EndFor
+        \For{$j=i+1\dots n$}
+        \If{$W_{ij} \ne 0$}
+            \State Receive $x_j$ from node $j$
+        \EndIf
+        \EndFor
+        \State $v_i^{k+1} = v_i^{k} - \gamma \sum_{i=1}^p W_{ij}x_j$.\label{n_itr2_parallel}
+    \EndFor
+    \State $k \gets k+1$
+    \Until{convergence}
+\end{algorithmic}
+\end{algorithm}

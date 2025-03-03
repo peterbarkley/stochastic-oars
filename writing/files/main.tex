@@ -1,1 +1,50 @@
-We solve instances of the problem
+Given a set of $n$ closed, convex, and proper functions $f_i : \HH_i \to \R$, $\v{x} = \left(x_1, \dots, x_n\right) \in \bigotimes_{i=1}^n \HH_i$, and coupling set $\mathcal{N}$, we find a minimizer over the values in $\mathcal{N}$ of the sum of the functions.
+We denote $\bigotimes_{i=1}^n \HH_i$ as $\Hx$.
+That is, we solve
+\begin{align}
+    \label{zero_coupled}
+    \min_{\v{x} \in \Hx} \, &\sum_{i=1}^n f_i(x_i) \\
+    \text{s.t.} \quad &\v{x} \in \mathcal{N}
+\end{align}
+Our coupling constraints operate on sub-elements of the decision variables.
+They can be thought of as multi-edges enforcing equality across sub-elements in different decision variables.
+More formally, with $m \geq 1$ couplings, for each $k = 1 \dots m$ coupling we have a set $I_k \subset \{1, \dots, n\}$ which contains the indices of the decision variables which have a subelement in coupling $k$, and a Hilbert space $\HKk$ for the subelement in the coupling.
+We let $r_k = |I_k|$ for $k = 1 \dots m$.
+For each decision variable $x_i$, we have a tuple $K_i$ which breaks $x_i$ into $p_i$ subelements which belong to different couplings. 
+We write this as $K_i = \left(k_1, \dots, k_{p_i}\right)$ where $k_1 \dots k_{p_i}$ provide the coupling index of the couplings in which the ordered subelements of $x_i$ participate.
+We refer to subelements of $x_i$ which belong to coupling $k$ as $x_{ik}$, so $x_i = \left(x_{ik_1}, \dots, x_{ik_{p_i}}\right)$ for $k_1 \dots k_{p_i} \in K_i$.
+This means we can express $\HH_i$ in terms of the coupling spaces as $\HH_i = \bigotimes_{k \in K_i} \HKk$.
+For clarity, we frequently permute the elements of $\v{x} = \left(x_1, \dots, x_n\right)$ into a variable $\v{y}$ which groups subelements of the decision variables by their coupling constraint (from $k = 1$ to $m$, and then ordered by their decision variable index within each coupling group).
+Therefore, for $\Hy = \bigotimes_{k=1}^m \HKk^{r_k} $, we have $\v{y} \in \Hy$.
+We choose a permutation operator $\v{P} : \Hx \to \Hy$ such that $\v{y} = \v{P} \v{x}$ and adjoint permutation operator $\v{P}^T : \Hy \to \Hx$ such that $\v{x} = \v{P}^T\v{y}$.
+This means that for submatrices $\v{P}_k$ in $\v{P} = \begin{bmatrix}
+    \v{P}_1 \\
+    \vdots \\
+    \v{P}_m 
+\end{bmatrix}$, $\v{P}_k$ is an operator from $\Hx$ to $\HKk^{r_k}$.
+With this notation established, we formalize the coupling set $\mathcal{N} \subseteq \Hx$ as 
+\begin{equation}\label{coupling_set_def}
+    \mathcal{N} = \left\{ \v{x} \in \Hx \, | \, x_{ik} = x_{jk} \quad \forall i,j \in I_k, \quad k = 1 \dots m\right\}.
+\end{equation}
+
+\subsection{Algorithm Matrices}
+Like the algorithms introduced in Section \ref{Sec:Preliminaries}, our extension relies on a set of matrix parameters $Z$ and $W$, which correspond with $L$ and $M$ as $W = M^T M$ and $Z = 2\I - L - L^T$.
+We choose the dimension integer $q$ as the total number of subelements of $\v{x}$ (which is the same as that of $\v{y}$), so $q = \sum_{k=1}^m |I_k| = \sum_{i=1}^n |K_i|$.
+The matrix $Z \in \mathbb{S}^q$ is a block-diagonal matrix defined as $Z = \diag{\left(Z_1, \dots, Z_m\right)}$ for $Z_k \in \Sp^{r_k}$ where $k=1 \dots m$.
+Each principle submatrix $Z_k$ has a corresponding matrix $W_k \in \Sp^{r_k}$ which together satisfy the assumptions in \eqref{oars}.
+For $k=1 \dots m$, we form $L_k$ such that $Z_k = 2\I - L_k^T - L_k$, so that $L_k$ is the negative of the lower triangle of $Z_k$.
+We also choose $M_k \in \R^{r_k - 1 \times r_k}$ such that $ M_k^T M_k = W_k$.
+We note that we can express the matrix $L$ as $\diag{\left(L_1, \dots, L_m\right)}$, and it is strictly lower triangular.
+We further note that since $\v{P}$ permutes to $\Hy$, and $\Hy$ orders elements of each $\HKk$ by the decision variable index, $\v{P}^T \v{L} \v{P}$ is strictly block lower triangular, with blocks defined by $H_i$ from $i=1$ to $n$.
+Similarly, defining $W = \diag{\left(W_1, \dots, W_m\right)}$ and $M = \diag{\left(M_1, \dots, M_m\right)}$, we have $W=M^T M$.
+Note that $M \in \R^{q-m \times q}$.
+We define a reduced Hilbert space for the $\v{M}$ operator as $\Hz = \bigotimes_{k=1}^m \HKk^{r_k-1}$.
+Our lifted linear operators based on these matrices operate as
+\begin{align}
+    \v{L} &: \Hy \to \Hy \\
+    \v{Z} &: \Hy \to \Hy \\
+    \v{W} &: \Hy \to \Hy \\
+    \v{M} &: \Hy \to \Hz \\
+    \v{M}^T &: \Hz \to \Hy 
+\end{align}
+With these building blocks, we can state our algorithm in Algorithm \ref{coupled_alg}.

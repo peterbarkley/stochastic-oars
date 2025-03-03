@@ -1,0 +1,12 @@
+We define the function $g : \Hz \to \Hx$ as the solution to 
+\begin{equation}\label{g_def}
+    g(\v{z}) = J_{\alpha \v{F}}\left(-\v{P}^T\v{M}^T\v{z} + \v{P}^T\v{L} \v{P}g(\v{z})\right)
+\end{equation}
+and note that since $\v{P}^T\v{L}\v{P}$ is lower triangular, $g$ is well-defined, and can be found by iteratively finding the prox on $\partial f_i$, working in parallel when any set of prox functions have all of the input required by $\v{L}$.
+\begin{theorem}
+The sequence of iterates $(\v{z}^k)$ of Algorithm \ref{coupled_alg}, applied to problem \eqref{zero_coupled} over a set of $n$ convex, proper, lower semi-continuous functions $f_i$ with the coupling constraint defined by \eqref{coupling_set_def}, converges weakly to a point $\v{z}^*$ such that $g(\v{z}^k)$ weakly converges to $g(\v{z}^*)$, and $g(\v{z}^*)$ is a solution for \eqref{zero_coupled}.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}

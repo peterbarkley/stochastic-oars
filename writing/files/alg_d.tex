@@ -1,0 +1,12 @@
+\begin{algorithm} 
+    \caption{Reduced Matrix-Parametrized Proximal Splitting Algorithm}\label{d_iteration} 
+    \begin{algorithmic}[1] 
+    \Require $\alpha > 0$; $\gamma \in (0,1)$; $\v{z}^0 \in \HH^{p-1}$; $Z, W \in \Sp^p$ satisfying \eqref{oars}; $L \in \R^{p \times p}$ such that $Z=2\I - L - L^T$; $M \in \R^{p-1 \times p}$ such that $M^T M = W$.
+    \State $k \gets 0$
+    \Repeat
+      \State $\v{x} = J_{\alpha \v{F}}\left(-\v{M}^T\v{z}^{k} + \v{L} \v{x}\right)$\label{d_itr1}
+      \State $\v{z}^{k+1} = \v{z}^{k} + \gamma \v{M} \v{x}$.\label{d_itr2}
+      \State $k \gets k+1$
+    \Until{convergence}
+\end{algorithmic}
+\end{algorithm}

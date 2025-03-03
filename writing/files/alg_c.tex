@@ -1,0 +1,12 @@
+\begin{algorithm} 
+    \caption{Coupled Matrix-Parametrized Proximal Splitting Algorithm}\label{coupled_alg} 
+    \begin{algorithmic}[1] 
+    \Require $\alpha > 0$; $\gamma \in (0,1)$; $\v{z}^0 \in \Hz$; for $k= 1 \dots m$: $Z_k, W_k \in \Sp^{r_k}$ satisfying \eqref{oars}; $L_k \in \R^{r_k \times r_k}$ such that $Z_k=2\I - L_k - L_k^T$; $M_k \in \R^{r_k-1 \times r_k}$ such that $M_k^T M_k = W_k$; $L = \diag{\left(L_1, \dots, L_m\right)}$; $M = \diag{\left(M_1, \dots, M_m\right)}$; permutation matrix $\v{P} : \Hx \to \Hy$.
+    \State $k \gets 0$
+    \Repeat
+      \State $\v{x} = J_{\alpha \v{F}}\left(-\v{P}^T\v{M}^T\v{z}^{k} + \v{P}^T\v{L} \v{P}\v{x}\right)$\label{c_itr1}
+      \State $\v{z}^{k+1} = \v{z}^{k} + \gamma \v{M} \v{P} \v{x}$.\label{c_itr2}
+      \State $k \gets k+1$
+    \Until{convergence}
+\end{algorithmic}
+\end{algorithm}

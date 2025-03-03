@@ -1,8 +1,35 @@
 \subsection{Notation}
 Notation
-
+$\HH$
+$\succeq$
+$\mathbb{S}^n$
+$\Sp^n$
+$\prox$
+$\bigotimes_{i=1}^n \HH_n$
+$\v{M}$
+$\v{x}$
+$\v{F}$
+$J_{\v{F}}$
+$\diag$
+Attouch-Th\'era Dual
+% In addition to the convergence of the $\v{x}$ iterates in \eqref{n_iteration}, the $\v{v}$ iterates can be used to compute the Attouch-Th\'era dual solution of a lifted version of the problem \eqref{zero_in_monotone}. In the following theorem, we denote by $\Delta$ the subspace
+% $$\Delta = \{\v{x} \in \mathcal{H}^{n}|\;\v{x} = \1 \otimes x \text{ for some } x \in \mathcal{H}\}.$$
+% \begin{theoremrep}\label{attouch-thera}
+% Let $\v{v}^{*}$ and $\v{x}^{*}$ be limits of the algorithm \eqref{n_iteration}. Define $\v{u}^{*} = \v{v}^{*} + (\v{L} - \I) \v{x}^{*}$. Then $\v{u}^{*}$ is the solution to the Attouch-Th\'era dual for the problem
+% \begin{equation} \label{at_primal}
+%  \find_{\v{x} \in \HH^n} 0 \in \left(\v{A} + \partial \iota_\Delta\right)\v{x},
+% \end{equation}
+% which is,
+% \begin{equation} \label{at_dual}
+% \find_{\v{u} \in \HH^n} 0 \in \left(\v{A}^{-1} + \left(\partial \iota_\Delta\right)^{-\ovee} \right)\v{u}.
+% \end{equation}
 \subsection{Matrix-Parametrized Proximal Splitting}
 The basis for our novel algorithm is the matrix-parametrized proximal splitting \cite{bassett2024optimaldesignresolventsplitting}, which can be given in reduced or full form as follows:
 
 Assumptions on M, L, W, Z.
-
+\begin{align}\label{oars}
+    Z &\succeq W \\
+    \nullspace{W} &= \text{span}(\1)\\
+    \text{diag}(Z) &=2\1 \\ 
+    Z \1 &= 0
+\end{align} 
