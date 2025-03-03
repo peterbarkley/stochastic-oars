@@ -1,6 +1,8 @@
 \subsection{Notation}
 Notation
 $\HH$
+$\1$
+$\ran$
 $\succeq$
 $\mathbb{S}^n$
 $\Sp^n$
@@ -28,8 +30,10 @@ The basis for our novel algorithm is the matrix-parametrized proximal splitting 
 
 Assumptions on M, L, W, Z.
 \begin{align}\label{oars}
+    W &= M^T M \\
     Z &\succeq W \\
     \nullspace{W} &= \text{span}(\1)\\
     \text{diag}(Z) &=2\1 \\ 
-    Z \1 &= 0
+    Z \1 &= 0 \\
+    Z &= 2\I - L - L^T
 \end{align} 

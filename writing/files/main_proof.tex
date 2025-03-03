@@ -2,11 +2,114 @@ We define the function $g : \Hz \to \Hx$ as the solution to
 \begin{equation}\label{g_def}
     g(\v{z}) = J_{\alpha \v{F}}\left(-\v{P}^T\v{M}^T\v{z} + \v{P}^T\v{L} \v{P}g(\v{z})\right)
 \end{equation}
-and note that since $\v{P}^T\v{L}\v{P}$ is lower triangular, $g$ is well-defined, and can be found by iteratively finding the prox on $\partial f_i$, working in parallel when any set of prox functions have all of the input required by $\v{L}$.
+and note that since $\v{P}^T\v{L}\v{P}$ is strictly block lower triangular, $g$ is well-defined, and can be found by iteratively finding the prox on $\partial f_i$, working in parallel when any set of prox functions have all of the input required by $\v{L}$.
 \begin{theorem}
-The sequence of iterates $(\v{z}^k)$ of Algorithm \ref{coupled_alg}, applied to problem \eqref{zero_coupled} over a set of $n$ convex, proper, lower semi-continuous functions $f_i$ with the coupling constraint defined by \eqref{coupling_set_def}, converges weakly to a point $\v{z}^*$ such that $g(\v{z}^k)$ weakly converges to $g(\v{z}^*)$, and $g(\v{z}^*)$ is a solution for \eqref{zero_coupled}.
+The sequence of iterates $(\v{z}^k)$ of Algorithm \ref{coupled_alg}, applied to problem \eqref{zero_coupled} over a set of $n$ convex, proper, lower semi-continuous functions $f_i$ with the coupling constraint defined by \eqref{coupling_set_def}, converges weakly to a point $\v{z}^*$ such that $g(\v{z}^*)$ is a solution for \eqref{zero_coupled}, and $g(\v{z}^k)$ weakly converges to $g(\v{z}^*)$.
 \end{theorem}
 
 \begin{proof}
+Our proof proceeds by first establishing the correspondence between the null space of $\v{M}\v{P}$, $\v{W}\v{P}$, and $\v{Z}\v{P}$ and $\mathcal{N}$. 
+We also establish that for $\v{x} \in \mathcal{N}$, $\v{P}^T(\v{L}-\I)\v{P}\v{x} \in \mathcal{N}^\perp$.
+We then show that the operator $T_\v{F}(\v{z}) = \v{z} + \gamma \v{M}\v{P}g(\v{z})$ is $\gamma$-averaged non-expansive for (potentially $\mu$-strong) maximal monotone operator $\v{F} = \left(\partial f_1(x_1), \dots, \partial f_n(x_n)\right)$.
+We next show that the existence of a minimizer for \eqref{zero_coupled} is equivalent to the existence of a fixed point of $T_{\v{F}}$, and we therefore have weak convergence of $(\v{z}^k)$ to some $\v{z}^* \in \text{Fix}\left(T_\v{F}\right)$ by the $\gamma$-average non-expansivity of $T_\v{F}$.
+Finally, we show that $g(\v{z}^k)$ converges to a unique weak cluster point $\v{x}^* \in \mathcal{N}$ such that $\v{x}^*$ is a minimizer of \eqref{zero_coupled}.
+
+%  correspondence between the null space of $\v{M}\v{P}$, $\v{W}\v{P}$, and $\v{Z}\v{P}$ and $\mathcal{N}$
+We begin with the null space of $\v{M}\v{P}$, $\v{W}\v{P}$, and $\v{Z}\v{P}$.
+For any $\v{x} \in \mathcal{N}$, $\v{P}\v{x} = \left(\1 \otimes y_1, \dots, \1 \otimes y_m\right)^T$ for some set of $y_k \in \HKk$. 
+This follows from the equality contraints in $\mathcal{N}$ and the permutation structure of $\v{P}$.
+By assumptions \eqref{oars} on $M_k$, $W_k$, and $Z_k$, 
+\[
+\nullspace{M_k} = \nullspace{W_k} = \nullspace{Z_k} = \1
+\]
+Therefore for $\v{x} \in \mathcal{N}$, 
+\begin{align}
+\v{W}\v{P}\v{x} &= \diag{\left(W_1, \dots, W_m\right)} \begin{pmatrix}
+    \1 \otimes y_1 \\
+    \vdots \\
+    \1 \otimes y_m 
+\end{pmatrix} &= 0 \\
+% \v{Z}\v{P}\v{x} = 0 \\
+\v{Z}\v{P}\v{x} &= \diag{\left(Z_1, \dots, Z_m\right)} \begin{pmatrix}
+    \1 \otimes y_1 \\
+    \vdots \\
+    \1 \otimes y_m 
+\end{pmatrix} &= 0 \\
+% \v{M}\v{P}\v{x} &= 0
+\v{M}\v{P}\v{x} &= \diag{\left(M_1, \dots, M_m\right)} \begin{pmatrix}
+    \1 \otimes y_1 \\
+    \vdots \\
+    \1 \otimes y_m 
+\end{pmatrix} &= 0 
+\end{align}
+Therefore 
+\begin{align}
+    \mathcal{N} &\subseteq \nullspace{M} \\
+    \mathcal{N} &\subseteq \nullspace{W} \\
+    \mathcal{N} &\subseteq \nullspace{Z} 
+\end{align}
+We also know that $W_k = M_k^T M_k$, so $W_k \succeq 0$. 
+Therefore, since $\nullspace{W_k} = \text{span}(\1)$ and $Z \succeq W$,
+\begin{align}
+\nullspace{M_k} &= \text{span}(\1) \\
+\lambda_2(W_k) &> 0 \\
+\lambda_2(Z_k) &> 0
+\end{align}
+and for any $\v{y}_k \in \HKk^{r_k}$ such that $\v{y}_k \neq \1 \otimes y_k$ for some $y_k \in \HKk$, $\v{y}_k$ is not in the nullspace of $M_k$, $W_k$, or $Z_k$.
+
+For any $\v{x} \notin \mathcal{N}$, at least one set of coupling constraints is not satisfied.
+Let $\v{y} = \v{P}\v{x}$, and $\v{y}_k \in \HKk^{r_k}$ be a subelement of $\v{y}$ which does not satisfied the coupling constraint, and therefore is not in the span of the ones vector.
+Then 
+\begin{align}
+\v{M}_k \v{y}_k &\neq 0 \\
+\v{W}_k \v{y}_k &\neq 0 \\
+\v{Z}_k \v{y}_k &\neq 0 
+\end{align}
+Therefore 
+\begin{equation}
+\nullspace{MP} = \nullspace{WP} = \nullspace{ZP} = \mathcal{N} 
+\end{equation}
+This also means that 
+\begin{equation}\label{range_PM}
+    \ran(P^T M^T) = \mathcal{N}^\perp.
+\end{equation}
+
+% We also establish that for $\v{x} \in \mathcal{N}$, $\v{P}^T(\v{L}-\I)\v{P}\v{x} \in \mathcal{N}^T$.
+Next, we show that for $\v{x} \in \mathcal{N}$, $\v{P}^T(\v{L}-\I)\v{P}\v{x} \in \mathcal{N}^\perp$.
+For all $\v{x}^\perp \in \mathcal{N}^\perp$ and $\v{x} \in mathcal{N}$, we have (since $\v{P}^T \v{P} = \I$)
+\begin{align}
+    \left\langle \v{x}^\perp, \v{x}, \right\rangle &= 0 \\
+    \left\langle \v{P}\v{x}^\perp, \v{P}\v{x}, \right\rangle &= 0 
+\end{align}
+We also know that for $\v{y} = \v{P}\v{x}$, we have $\v{y} = \left(\1 \otimes y_1, \dots, \1 \otimes y_m\right)^T$ for some values $y_k \in \HKk$.
+We also know that if $\left\langle \v{y}, \v{y}'\right\rangle = 0$, then $\v{x}' = -\v{P}^T \v{y}'$ is in $\mathcal{N}^\perp$.
+By assumption, each $Z_k$ is symmetric and $Z_k\1=0$, so $\1^T Z_k \1 = 0$.
+We also know by assumption that $Z_k = 2\I - L_k - L_k^T$, so $\1^T (L_k - \I)\1 = -\frac{1}{2}\1^T Z_k \1 = 0$.
+This means that for each $k$, $\left\langle \1 \otimes y^1_k, (\v{L} - \I)(\1 \otimes y^2_k)\right\rangle = 0$.
+For any $\v{x}^1 \in mathcal{N}$ and $\v{y}^1 = \v{P}\v{x}^1 = \left(\1 \otimes y_1^1, \dots, \1 \otimes y_m^1\right)^T$ we then have 
+\begin{align}
+\v{y}' &= (\v{L} - \I)\v{P}\v{x}^1 \\ 
+&= (\v{L} - \I)\v{y}^1 \\ 
+&= \diag\left(L_1 - \I, \dots, L_m - \I\right) \begin{pmatrix}
+    \1 \otimes y_1^1 \\
+    \vdots \\
+    \1 \otimes y_m^2
+\end{pmatrix} \\ 
+&= \left((L_1 - \I)(\1 \otimes y_1^1), \dots, (L_m -\I)(\1 \otimes y_m^1)\right)^T
+\end{align}
+For any $\v{x}^2 \in \mathcal{N}$ and $\v{y}^2 = \v{P}\v{x}^2 = \left(\1 \otimes y_1^2, \dots, \1 \otimes y_m^2\right)^T$, we then have
+\begin{align}    
+    \left\langle \v{x}^2, \v{P}^T (\v{L} - \I)\v{P}\v{x}^1 \right\rangle &= \left\langle \v{x}^2, \v{P}^T \v{y}' \right\rangle \\
+    &= \left\langle \v{P}\v{x}^2, \v{y}' \right\rangle \\
+    &= \left\langle \v{y}^2, \v{y}' \right\rangle \\
+    &= \sum_{i=1}^m \left\langle \1 \otimes y_k^2, (L_k - \I)(\1 \otimes y_k^1) \right\rangle \\
+    &= 0
+\end{align}
+Therefore 
+\begin{equation}\label{LIx_in_NT}
+\v{P}^T(\v{L}-\I)\v{P}\v{x} \in \mathcal{N}^\perp \quad \forall \v{x} \in \mathcal{N}
+\end{equation}
+
+% minimizer of zero_coupled equiv. to fixed point of T_F
 
 \end{proof}

@@ -1,4 +1,4 @@
-Given a set of $n$ closed, convex, and proper functions $f_i : \HH_i \to \R$, $\v{x} = \left(x_1, \dots, x_n\right) \in \bigotimes_{i=1}^n \HH_i$, and coupling set $\mathcal{N}$, we find a minimizer over the values in $\mathcal{N}$ of the sum of the functions.
+Given a set of $n$ lower semi-continuous, convex, and proper functions $f_i : \HH_i \to \R$, $\v{x} = \left(x_1, \dots, x_n\right) \in \bigotimes_{i=1}^n \HH_i$, and coupling set $\mathcal{N}$, we find a minimizer over the values in $\mathcal{N}$ of the sum of the functions.
 We denote $\bigotimes_{i=1}^n \HH_i$ as $\Hx$.
 That is, we solve
 \begin{align}
@@ -6,6 +6,8 @@ That is, we solve
     \min_{\v{x} \in \Hx} \, &\sum_{i=1}^n f_i(x_i) \\
     \text{s.t.} \quad &\v{x} \in \mathcal{N}
 \end{align}
+We assume a minimizer for \eqref{zero_coupled} exists.
+
 Our coupling constraints operate on sub-elements of the decision variables.
 They can be thought of as multi-edges enforcing equality across sub-elements in different decision variables.
 More formally, with $m \geq 1$ couplings, for each $k = 1 \dots m$ coupling we have a set $I_k \subset \{1, \dots, n\}$ which contains the indices of the decision variables which have a subelement in coupling $k$, and a Hilbert space $\HKk$ for the subelement in the coupling.
@@ -26,6 +28,7 @@ With this notation established, we formalize the coupling set $\mathcal{N} \subs
 \begin{equation}\label{coupling_set_def}
     \mathcal{N} = \left\{ \v{x} \in \Hx \, | \, x_{ik} = x_{jk} \quad \forall i,j \in I_k, \quad k = 1 \dots m\right\}.
 \end{equation}
+We note that the set $\mathcal{N}$ is closed and convex.
 
 \subsection{Algorithm Matrices}
 Like the algorithms introduced in Section \ref{Sec:Preliminaries}, our extension relies on a set of matrix parameters $Z$ and $W$, which correspond with $L$ and $M$ as $W = M^T M$ and $Z = 2\I - L - L^T$.
