@@ -86,7 +86,7 @@ We also know that if $\left\langle \v{y}, \v{y}'\right\rangle = 0$, then $\v{x}'
 By assumption, each $Z_k$ is symmetric and $Z_k\1=0$, so $\1^T Z_k \1 = 0$.
 We also know by assumption that $Z_k = 2\I - L_k - L_k^T$, so $\1^T (L_k - \I)\1 = -\frac{1}{2}\1^T Z_k \1 = 0$.
 This means that for each $k$, $\left\langle \1 \otimes y^1_k, (\v{L} - \I)(\1 \otimes y^2_k)\right\rangle = 0$.
-For any $\v{x}^1 \in mathcal{N}$ and $\v{y}^1 = \v{P}\v{x}^1 = \left(\1 \otimes y_1^1, \dots, \1 \otimes y_m^1\right)^T$ we then have 
+For any $\v{x}^1 \in \mathcal{N}$ and $\v{y}^1 = \v{P}\v{x}^1 = \left(\1 \otimes y_1^1, \dots, \1 \otimes y_m^1\right)^T$ we then have 
 \begin{align}
 \v{y}' &= (\v{L} - \I)\v{P}\v{x}^1 \\ 
 &= (\v{L} - \I)\v{y}^1 \\ 
@@ -111,5 +111,128 @@ Therefore
 \end{equation}
 
 % minimizer of zero_coupled equiv. to fixed point of T_F
+We now show that $T_F$ is $\gamma$-averaged non-expansive.
+By the definition of the resolvent and the maximal monotonicity of $\v{F}$, we know for any $\v{z}^1, \v{z}^2 \in \Hz$, $\v{x}^1 = g(\v{z}^1)$, and $\v{x}^2 = g(\v{z}^2)$ that
+\begin{align}
+    \v{F}(\v{x}^1) &\ni -\v{P}^T \v{M}^T\v{z}^1 + \left(\v{P}^T \v{L} \v{P} - \I \right)\v{x}^1 \\
+    \v{F}(\v{x}^2) &\ni -\v{P}^T \v{M}^T\v{z}^2 + \left(\v{P}^T \v{L} \v{P} - \I \right)\v{x}^2.
+\end{align}
+Let 
+\begin{align}
+\v{z} &= \v{z}^1 - \v{z}^2\\
+\v{x} &= \v{x}^1 - \v{x}^2 \\
+\v{z}^+ &= T_{\v{F}}\left(\v{z}^1\right) - T_{\v{F}}\left(\v{z}^2\right).
+\end{align}
+Then for maximal monotone $\v{F}$ (with $\mu = 0$) and maximal $\mu$-strongly monotone $\v{F}$ (with $\mu > 0$), we have
+\begin{align}
+    \left\langle \v{x}^1 - \v{x}^2, -\v{P}^T \v{M}^T \v{z}^1 + \left(\v{P}^T \v{L} \v{P}  - \I\right) \v{x}^1 \right\rangle &\\
+    - \left\langle \v{x}^1 - \v{x}^2, -\v{P}^T \v{M}^T \v{z}^2 + \left(\v{P}^T\v{L}\v{P} - \I\right) \v{x}^2 \right\rangle &\geq \mu \norm{\v{x}^1 - \v{x}^2}^2\\
+    \implies \left\langle \v{x}, -\v{P}^T\v{M}^T \v{z} + \left(\v{P}^T\v{L}\v{P} - \I\right) \v{x} \right\rangle & \geq \mu \norm{\v{x}}^2.\label{first}
+\end{align}
+We note that $\I = \v{P}^T \I \v{P}$, so 
+\begin{align}
+    \left\langle \v{x}, \left(\v{P}^T\v{L}\v{P} - \I\right) \v{x} \right\rangle &= \left\langle \v{x}, \v{P}^T(\v{L}-\I)\v{P}\v{x} \right\rangle \\
+    &= -\frac{1}{2}\left\langle \v{x}, \v{P}^T \v{Z} \v{P} \v{x}\right\rangle.
+\end{align}
+We define $\alpha_\v{x}$ as
+\begin{equation}
+    \alpha_\v{x} = \begin{cases}
+        1 \quad &\text{if} \, \v{W}\v{P}\v{x} = 0 \\
+        \frac{\left\langle \v{P}\v{x}, \v{Z}\v{P}\v{x} \right\rangle}{\left\langle \v{P}\v{x}, \v{W}\v{P}\v{x}\right\rangle} & \text{otherwise}
+    \end{cases}.
+\end{equation}
+We note that since $Z \succeq W$, we always have $\alpha_\v{x} \geq 1$.
+Therefore the left-hand side of \eqref{first} reduces to
+\begin{align}
+& \left\langle \v{x}, -\v{P}^T\v{M}^T \v{z}\right\rangle - \frac{1}{2}\left\langle \v{x}, \v{P}^T \v{Z} \v{P} \v{x}\right\rangle \\
+=& \left\langle \v{x}, -\v{P}^T\v{M}^T \v{z}\right\rangle - \frac{\alpha_\v{x}}{2}\left\langle \v{x}, \v{P}^T \v{W} \v{P} \v{x}\right\rangle.
+\end{align}
+We let $\norm{\v{W}}$ be the operator norm on $\v{W}$, and note that $\norm{\v{W}} = \norm{W}$.
+We also know that $\norm{W} = \max_{k} \norm{W_k}$ since $W$ is block diagonal.
+Let $\beta = \norm{W} = \max_{k} \norm{W_k}$.
+Then, on the right-hand side, we have
+\begin{align}
+    \norm{\v{x}}^2 &\geq \frac{1}{\beta}\left\langle\v{x}, \v{P}^T\v{W}\v{P}\v{x}\right\rangle\\
+    &\geq \frac{1}{\beta}\left\langle\v{x}, \v{P}^T\v{W}\v{P}\v{x}\right\rangle.
+\end{align}
+We therefore have
+\begin{align}
+    \left\langle \v{x}, -\v{P}^T\v{M}^T \v{z}\right\rangle - \frac{\alpha_\v{x}}{2}\left\langle \v{x}, \v{P}^T \v{W} \v{P} \v{x}\right\rangle &\geq \frac{\mu}{\beta}\left\langle\v{x}, \v{P}^T\v{W}\v{P}\v{x}\right\rangle \\
+    \left\langle \v{x}, -\v{P}^T\v{M}^T \v{z}\right\rangle - \left(\frac{\alpha_\v{x}}{2} + \frac{\mu}{\beta}\right)\left\langle \v{x}, \v{P}^T \v{W} \v{P} \v{x}\right\rangle &\geq 0\\
+    \left\langle -\v{M}\v{P}\v{x}, \v{z}\right\rangle - \left(\frac{\alpha_\v{x}}{2} + \frac{\mu}{\beta}\right)\left\langle \v{M}\v{P}\v{x}, \v{M}\v{P} \v{x}\right\rangle &\geq 0.\label{second}
+\end{align}
+By the definition of $\v{z}^+$, $\v{M}\v{P}\v{x} = \frac{\v{z}^+ - \v{z}}{\gamma}$, so we have
+\begin{equation}
+    \frac{1}{\gamma}\left\langle \v{z}^+ - \v{z}, \v{z}\right\rangle - \left(\frac{\alpha_\v{x}}{2} - \frac{\mu}{\beta}\right)\frac{1}{\gamma^2}\norm{\v{z}^+ - \v{z}}^2 \geq 0.
+\end{equation}
+By the results of \cite[Appendix A, Theorem 1, eq. 60-61]{bassett2024optimaldesignresolventsplitting}, applying the parallelogram law, we have 
+\begin{equation}
+    \norm{\v{z}}^2 - \frac{\gamma - \alpha_\v{x} - \frac{2\mu}{\beta}}{\gamma}\norm{\v{z} - \v{z}^+}^2 \geq \norm{\v{z}^+}^2
+\end{equation}
+and $T_\v{F}$ is $\gamma$-averaged non-expansive for $\gamma \in \left(0, \alpha + \frac{2\mu}{\beta}\right)$.
+Because $\alpha_\v{x} \geq 1$, this condition is always satisfied for $\gamma \in (0, 1)$.
 
+% Fixed point <=> argmin
+We now show that the existence of a minimizer for \eqref{zero_coupled} implies the existence of a fixed point of $T_\v{F}$.
+Suppose $\v{x}^* \in \argmin_{\v{x} \in \mathcal{N}} \sum_{i=1}^n f_i(x_i)$.
+We then have some $w_i \in \partial f_i(x_i^*)$ given by $w_i = \left(w_{ik_1}, \dots, w_{ik_{p_i}}\right)$ for $k_1 \dots k_{p_i} \in K_i$ such that 
+\begin{equation}\label{optimality_subgrad_sum}
+    \sum_{i \in I_k} w_{ik} = 0 \quad k=1 \dots M
+\end{equation}
+Let $\v{w} = \left(w_1, \dots, w_n\right)$.
+Condition \eqref{optimality_subgrad_sum} is equivalent to $\v{w} \in \mathcal{N}^\perp$.
+By \eqref{range_PM}, we know that $\v{w} \in \ran(\v{P}^T\v{M}^T)$.
+Since $\v{x}^* \in \mathcal{N}$, we also know that $\v{P}^T(\v{L} - \I)\v{P}\v{x} \in \ran(\v{P}^T\v{M}^T)$.
+Therefore there exists a value $\v{z}^* \in \Hz$ such that 
+\[-\v{P}^T \v{M}^T \v{z}^* = \v{w} + \v{P}^T(\I-\v{L})\v{P}\v{x}^*\].
+By the definition of the resolvent, we then have
+\[
+\v{x}^* = J_\v{F}\left(-\v{P}^T \v{M}^T \v{z}^* + \v{P}^T \v{L}\v{P}\v{x}^*\right) = g(\v{z}^*).
+\]
+We further note that $\v{x}^* \in \nullspace{\v{M}\v{P}}$, so $\v{z}^* = T_\v{F}(\v{z}^*)$ and $\v{z}^* \in \text{Fix}(T_\v{F})$.
+
+Since $T_\v{F}$ is $\gamma$-averaged non-expansive, for any starting point $\v{z}^0$ and sequence $(\v{z}^k)$ defined by $\v{z}^{k+1} = T_\v{F}(\v{z}^k)$, we know that $\v{z}^{k+1}-\v{z}^k \to 0$ and $(\v{z}^k)$ converges weakly to some $\v{z}^* \in \text{Fix}(T_\v{F})$ \cite[Prop 5.15]{bauschke_combettes}. 
+This also implies the boundedness of $(\v{z}^k)$ by \cite[Prop 2.40]{bauschke_combettes}.
+
+By the argument in \cite[Appendix 1, Theorem 1, Eq. 64-68]{bassett2024optimaldesignresolventsplitting} the non-expansivity of the resolvent on $\v{F}$ and the boundedness of $(\v{z}^k)$ imply the boundedness of $(g(\v{z}^k))$.
+Therefore $(g(\v{z}^k))$ has a weak sequential cluster point $\v{\tilde{x}}$ \cite[Fact 2.27]{bauschke_combettes}.
+Let $\v{x}^k = g(\v{z}^k)$ and $(\v{x}^{k_n})$ be a subsequence of $(\v{x}^k)$ converging weakly to $\v{\tilde{x}}$.
+We next show that $\v{\tilde{x}}$ is unique by showing that $\v{\tilde{x}} = J_\v{F}\left(-\v{P}^T \v{M}^T \v{z}^* + \v{P}^T \v{L}\v{P}\v{\tilde{x}}\right)$.
+We begin by showing that $\v{\tilde{x}} \in \mathcal{N}$.
+We know that $\v{z}^{k+1} - \v{z}^k \to 0$ and $\v{z}^{k+1} = \v{z}^k + \gamma \v{M} \v{P}\v{x}$, so $\lim_{k\to\infty} \v{M}\v{P}g(\v{z}^k) = 0$.
+Therefore, $\v{M}\v{P}\v{\tilde{x}} = \lim_{n \to \infty} \v{M}\v{P}\v{x}^{k_n} = 0$.
+Since $\v{\tilde{x}} \in \nullspace{\v{M}\v{P}}$, we have $\v{\tilde{x}} \in \mathcal{N}$.
+We now show that $\v{\tilde{x}} = J_\v{F}\left(-\v{P}^T \v{M}^T \v{z}^* + \v{P}^T \v{L}\v{P}\v{\tilde{x}}\right)$ by showing that $\v{\tilde{y}} = \v{P}^T \v{M}^T \v{z}^* + \v{P}^T(\v{L} - \I)\v{P}\v{\tilde{x}} \in \v{F}(\v{\tilde{x}})$.
+Given the maximal monotonicity of $\v{F}$, we can show that $\v{\tilde{y}} \in \v{F}(\v{\tilde{x}})$ if, for any $\v{u} \in \text{Dom}(\v{F})$ and $\v{v} \in \v{F}(\v{u})$, $\left\langle \v{\tilde{x}} - \v{u}, \v{\tilde{y}} - \v{v} \right\rangle \geq 0$.
+By the monotonicity of $\v{F}$ and the definition of $\v{x}^k$, we know that
+\begin{equation}
+    \left\langle \v{x}^{k_n} - \v{u}, -\v{P}^T \v{M}^T \v{z}^{k_n} + \v{P}^T(\v{L} - \I)\v{P}\v{x}^{k_n} - \v{v}\right\rangle \geq 0.
+\end{equation}
+Taking the limit as $n \to \infty$ we have 
+\begin{align}
+    \lim_{n \to \infty} &\left\langle -\v{M}\v{P}\v{x}^{k_n}, \v{z}^{k_n} \right\rangle - \left\langle \v{u}, -\v{P}^T \v{M}^T \v{z}^{k_n} \right\rangle \\
+    &+ \left\langle \v{x}^{k_n} , \v{P}^T (\v{L} - \I) \v{P} \v{x}^{k_n} \right\rangle - \left\langle \v{u} , \v{P}^T (\v{L} - \I) \v{P} \v{x}^{k_n} \right\rangle \\
+    & + \left\langle \v{x}^{k_n} , -\v{v} \right\rangle + \langle \v{u}, \v{v} \rangle
+\end{align}
+Looking at the limit terms individually, we have
+\begin{align}
+    \lim_{n \to \infty} \left\langle -\v{M}\v{P}\v{x}^{k_n}, \v{z}^{k_n} \right\rangle &= 0 \label{lim_1}\\
+    \lim_{n \to \infty} \left\langle \v{u}, -\v{P}^T \v{M}^T \v{z}^{k_n} \right\rangle &= \left\langle \v{u}, -\v{P}^T \v{M}^T \v{z}^* \right\rangle \label{lim_2}\\
+    \lim_{n \to \infty} \left\langle \v{x}^{k_n} , \v{P}^T (\v{L} - \I) \v{P} \v{x}^{k_n} \right\rangle &= \left\langle \v{\tilde{x}} , \v{P}^T (\v{L} - \I) \v{P} \v{\tilde{x}} \right\rangle \label{lim_3}\\
+    \lim_{n \to \infty} \left\langle \v{u} , \v{P}^T (\v{L} - \I) \v{P} \v{x}^{k_n} \right\rangle &= \left\langle \v{u} , \v{P}^T (\v{L} - \I) \v{P} \v{\tilde{x}} \right\rangle \label{lim_4}\\
+    \lim_{n \to \infty}  \left\langle \v{x}^{k_n} , -\v{v} \right\rangle &= \left\langle \v{\tilde{x}} , -\v{v} \right\rangle. \label{lim_5}
+\end{align}
+Limit \eqref{lim_1} follows from $\v{M}\v{P}\v{x}^k \to 0$ and the weak convergence of $(\v{z}^k)$.
+Limit \eqref{lim_2} follows from the weak convergence of $(\v{z}^k)$.
+Limit \eqref{lim_3} follows from the weak convergence of $(x^{k_n})$ and the fact that $\v{P}^T(\v{L} - \I)\v{P}$ is a bounded linear operator.
+Limits \eqref{lim_4} and \eqref{lim_5} likewise follow from the weak convergence of $(\v{x}^{k_n})$.
+
+We therefore have 
+\[ \left\langle \v{\tilde{x}} - \v{u}, -\v{P}^T\v{M}^T\v{z}^* + \v{P}^T(\v{L} - \v{I})\v{P}\v{\tilde{x}} - \v{v} \right\rangle = \left\langle \v{\tilde{x}} - \v{u}, \v{\tilde{y} - \v{v}} \right\rangle \geq 0
+\]
+and $\v{\tilde{y}} \in \v{F}(\v{\tilde{x}})$.
+
+We now have $\v{\tilde{x}} = J_{\v{F}}\left(-\v{P}^T\v{M}^T\v{z}^* + \v{P}^T\v{L}\v{P}\v{\tilde{x}}\right)$, and establish that $\v{\tilde{x}}$ is unique by the uniqueness of the resolvent on $\v{F}$.
+Since $(\v{x}^k)$ has a unique weak cluster point $\v{\tilde{x}}$, it therefore weakly converges to $\v{\tilde{x}}$.
+Furthermore, since $\v{\tilde{x}} \in \mathcal{N}$ and $\v{\tilde{y}} = \v{P}^T \v{M}^T \v{z}^* + \v{P}^T(\v{L} - \I)\v{P}\v{\tilde{x}} \in \mathcal{N}^\perp$ and $\v{\tilde{y}} \in \v{F}(\v{\tilde{x}})$, $\v{\tilde{x}} \in \argmin_{\v{x} \in \mathcal{N}} \sum_{i=1}^n f_i(x_i)$.
 \end{proof}
